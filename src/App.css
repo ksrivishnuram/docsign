@@ -2,37 +2,38 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.signature-canvas {
+  border: 1px solid #ccc;
+  margin: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-.App-link {
-  color: #61dafb;
+/* Font styles */
+.freehand-regular {
+  font-family: "Freehand", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.qwitcher-grypen-regular {
+  font-family: "Qwitcher Grypen", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.qwitcher-grypen-bold {
+  font-family: "Qwitcher Grypen", cursive;
+  font-weight: 700;
+  font-style: normal;
 }
