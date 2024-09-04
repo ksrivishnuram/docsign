@@ -5,9 +5,10 @@ import './App.css';
 import axios from 'axios';
 
 // Import the necessary components
-
-import TouchPad from './TouchPad';    // Updated import
-import TextToStyle from './TextToStyle'; // Import the new component
+import TouchPad from './TouchPad'; // Existing imports
+import TextToStyle from './TextToStyle'; // Existing imports
+import Login from './Login'; // Updated path
+import Register from './Register'; // Updated path
 
 function App() {
   const handleSave = async (data) => {
@@ -35,6 +36,16 @@ function App() {
               </header>
             </div>
           }
+        />
+        {/* Login Route */}
+        <Route 
+          path="/login" 
+          element={<Login />} 
+        />
+        {/* Register Route */}
+        <Route 
+          path="/register" 
+          element={<Register />} 
         />
       </Routes>
     </Router>
