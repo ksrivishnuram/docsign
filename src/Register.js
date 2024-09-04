@@ -1,20 +1,38 @@
-// src/Register.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Updated import
+import axios from 'axios'; // Import axios
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Updated hook
+  const navigate = useNavigate();
 
   const generatePassword = () => {
     const generatedPassword = Math.random().toString(36).slice(-12);
     setPassword(generatedPassword);
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (email.endsWith('@infowaygroup.com')) {
-      alert(`Account registered successfully! Your password is: ${password}`);
+      const registrationData = { email, password };
+
+      try {
+        // Send data to backend using axios
+        const response = await axios.post('http://localhost:8080/api/register', registrationData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        alert(`Account registered successfully! Your password is: ${password}`);
+        console.log('Backend response:', response.data);
+
+        // Optionally navigate to another page after registration
+        navigate('/login');
+      } catch (error) {
+        console.error('Error during registration:', error);
+        alert('Registration failed. Please try again.');
+      }
     } else {
       alert('Please use your infowaygroup company email to register.');
     }
@@ -37,7 +55,7 @@ const Register = () => {
         readOnly
       />
       <button onClick={handleRegister}>Register</button>
-      <button onClick={() => navigate('/login')}>Back to Login</button> {/* Updated navigation */}
+      <button onClick={() => navigate('/login')}>Back to Login</button>
     </div>
   );
 };

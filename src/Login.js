@@ -1,18 +1,36 @@
-// src/Login.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Updated import
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Updated hook
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Logic for handling login
-    if (email.endsWith('@infowaygroup.com')) {
-      alert('Logged in successfully');
-    } else {
-      alert('Please use your infowaygroup company email to login.');
+  const handleLogin = async () => {
+    // Check if the email is from the abc.com domain
+    if (!email.endsWith('@infowaygroup.com')) {
+      alert('Please use your infowaygroup company email to log in.');
+      return;
+    }
+
+    const loginData = { email, password };
+
+    try {
+      // Send login data to backend
+      const response = await axios.post('http://localhost:8080/api/login', loginData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 200) {
+        alert('Login successful');
+        navigate('/dashboard'); // Navigate to another page on successful login
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Invalid email or password');
     }
   };
 
@@ -32,7 +50,6 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
-      <button onClick={() => navigate('/register')}>Register</button> {/* Updated navigation */}
     </div>
   );
 };
