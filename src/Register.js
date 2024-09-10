@@ -7,30 +7,34 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  // Generate a random password of 12 characters
   const generatePassword = () => {
-    const generatedPassword = Math.random().toString(36).slice(-12);
-    setPassword(generatedPassword);
+    const generatedPassword = Math.random().toString(36).slice(-12); 
+    setPassword(generatedPassword); // Set the generated password to the state
   };
 
   const handleRegister = async () => {
+    // Ensure that the email is a valid company email
     if (email.endsWith('@infowaygroup.com')) {
       const registrationData = { email, password };
 
       try {
-        // Send data to backend using axios
-        const response = await axios.post('http://localhost:8080/api/register', registrationData, {
+        // Send registration data to the backend
+        const response = await axios.post('http://localhost:8080/users/register', registrationData, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
 
-        alert(`Account registered successfully! Your password is: ${password}`);
-        console.log('Backend response:', response.data);
+        if (response.status === 200) {
+          alert(`Account registered successfully! Your password is: ${password}`);
+          console.log('Backend response:', response.data);
 
-        // Optionally navigate to another page after registration
-        navigate('/login');
+          // Navigate to the login page after successful registration
+          navigate('/login');
+        }
       } catch (error) {
-        console.error('Error during registration:', error);
+        console.error('Error during registration:', error.response || error.message);
         alert('Registration failed. Please try again.');
       }
     } else {

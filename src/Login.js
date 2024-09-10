@@ -8,17 +8,18 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    // Check if the email is from the abc.com domain
+    // Check if the email is from the infowaygroup.com domain
     if (!email.endsWith('@infowaygroup.com')) {
       alert('Please use your infowaygroup company email to log in.');
       return;
     }
 
-    const loginData = { email, password };
+    // Update to match the backend expected format
+    const loginData = { userEmail: email, password };
 
     try {
       // Send login data to backend
-      const response = await axios.post('http://localhost:8080/api/login', loginData, {
+      const response = await axios.post('http://localhost:8080/users/login', loginData, {
         headers: {
           'Content-Type': 'application/json',
         },
